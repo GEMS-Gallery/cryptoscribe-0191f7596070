@@ -1,0 +1,38 @@
+"dfx.json": {
+    "canisters": {
+      "backend": {
+        "main": "backend/main.mo",
+        "type": "motoko"
+      },
+      "frontend": {
+        "dependencies": [
+          "backend"
+        ],
+        "source": [
+          "frontend/dist"
+        ],
+        "type": "assets"
+      }
+    }
+  },
+  "frontend/package.json": {
+    "name": "frontend",
+    "private": "true",
+    "type": "module",
+    "scripts": {
+      "build": "vite build"
+    },
+    "dependencies": {
+      "@dfinity/agent": "*",
+      "@dfinity/candid": "*",
+      "@dfinity/principal": "*",
+      "@dfinity/auth-client": "*"
+    },
+    "devDependencies": {
+      "dotenv": "*",
+      "vite": "*",
+      "vite-plugin-environment": "*"
+    }
+  },
+  "frontend/vite.config.js": "import { fileURLToPath, URL } from 'url';\nimport { defineConfig } from 'vite';\nimport environment from 'vite-plugin-environment';\n\nexport default defineConfig({\n  build: {\n    emptyOutDir: true,\n  },\n  optimizeDeps: {\n    esbuildOptions: {\n      define: {\n        global: \"globalThis\",\n      },\n    },\n  },\n  server: {\n    proxy: {\n      \"/api\": {\n        target: \"http://127.0.0.1:4943\",\n        changeOrigin: true,\n      },\n    },\n  },\n  plugins: [\n    environment(\"all\", { prefix: \"CANISTER_\" }),\n    environment(\"all\", { prefix: \"DFX_\" }),\n  ],\n  resolve: {\n    alias: [\n      {\n        find: \"declarations\",\n        replacement: fileURLToPath(\n          new URL(\"declarations\", import.meta.url)\n        ),\n      },\n    ],\n  },\n});"
+}
