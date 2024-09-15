@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const postsContainer = document.getElementById('posts');
 
     newPostBtn.addEventListener('click', () => {
-        postForm.style.display = postForm.style.display === 'none' ? 'block' : 'none';
+        postForm.style.display = postForm.style.display === 'none' || postForm.style.display === '' ? 'block' : 'none';
     });
 
     postForm.addEventListener('submit', async (e) => {
