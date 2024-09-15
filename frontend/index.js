@@ -11,8 +11,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const postForm = document.getElementById('post-form');
     const postsContainer = document.getElementById('posts');
 
+    // Initially hide the form
+    postForm.style.display = 'none';
+
     newPostBtn.addEventListener('click', () => {
-        postForm.style.display = postForm.style.display === 'none' || postForm.style.display === '' ? 'block' : 'none';
+        console.log('New Post button clicked'); // Debug log
+        postForm.style.display = postForm.style.display === 'none' ? 'block' : 'none';
     });
 
     postForm.addEventListener('submit', async (e) => {
